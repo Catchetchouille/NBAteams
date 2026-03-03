@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My API App</title>
+</head>
+<body>
+    <h1>Send Data to Python API</h1>
+
+    <form method="POST" action="/process">
+        <input type="text" name="user_input" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if result %}
+        <h2>Result:</h2>
+        <p>{{ result }}</p>
+    {% endif %}
+</body>
+</html>
