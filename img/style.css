@@ -21,4 +21,15 @@ th {
 td {
   padding: 8px;
   text-align: left;
-}   
+  background-color: white;
+} 
+
+body {
+  background-color: rgb(43, 43, 167);
+}
+
+h2 {
+    color: aliceblue;
+    text-align: center;
+    font-size: 36px;
+}
