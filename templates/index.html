@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NBA Stats</title>
+</head>
+<body>
+
+  <h1>NBA Player Stats</h1>
+
+  <input type="text" id="search" placeholder="Search player..." />
+  <div id="suggestions"></div>
+
+  <div id="info"></div>
+  <div id="career"></div>
+  <div id="gamelog"></div>
+
+  <script>
+    const searchEl = document.getElementById('search');
+    let timer = null;
+
+    searchEl.addEventListener('input', () => {
+      clearTimeout(timer);
+      const q = searchEl.value.trim();
+      if (q.length < 2) { document.getElementById('suggestions').innerHTML = ''; return; }
+      timer = setTimeout(() => fetchSuggestions(q), 300);
+    });
+
+    async function fetchSuggestions(q) {
+      const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
+      const players = await res.json();
+      document.getElementById('suggestions').innerHTML =
+        players.map(p => `<div onclick="loadPlayer(${p.id}, '${p.name}')">${p.name} (${p.active ? 'Active' : 'Retired'})</div>`).join('');
+    }
+
+    async function loadPlayer(id, name) {
+      document.getElementById('suggestions').innerHTML = '';
+      searchEl.value = name;
+      document.getElementById('info').innerHTML = 'Loading...';
+      document.getElementById('career').innerHTML = '';
+      document.getElementById('gamelog').innerHTML = '';
+
+      const [info, career, gamelog] = await Promise.all([
+        fetch(`/api/player/${id}/info`).then(r => r.json()),
+        fetch(`/api/player/${id}/career`).then(r => r.json()),
+        fetch(`/api/player/${id}/gamelog`).then(r => r.json()),
+      ]);
+
+      document.getElementById('info').innerHTML = `
+        <h2>${info.name}</h2>
+        <p>Team: ${info.team} | Position: ${info.position} | #${info.jersey} | ${info.height} | ${info.weight} lbs | ${info.country}</p>
+      `;
+
+      document.getElementById('career').innerHTML = `<h3>Career Stats</h3>${buildTable(career)}`;
+      document.getElementById('gamelog').innerHTML = `<h3>2023-24 Game Log</h3>${buildTable(gamelog)}`;
+    }
+
+    function buildTable(rows) {
+      if (!rows.length) return '<p>No data.</p>';
+      const keys = Object.keys(rows[0]);
+      return `<table border="1" cellpadding="4">
+        <thead><tr>${keys.map(k => `<th>${k}</th>`).join('')}</tr></thead>
+        <tbody>${rows.map(r => `<tr>${keys.map(k => `<td>${r[k] ?? '—'}</td>`).join('')}</tr>`).join('')}</tbody>
+      </table>`;
+    }
+  </script>
+
+</body>
+</html>
