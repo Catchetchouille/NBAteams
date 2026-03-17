@@ -1,7 +1,11 @@
-.table-container {
+.table-container{
   height: 500px;
   overflow-y: auto;
   border: 1px solid #ccc;
+  width: 1000px;
+  margin: auto;
+}
+.input-container{
   width: 1000px;
   margin: auto;
 }
