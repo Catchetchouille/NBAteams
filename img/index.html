@@ -8,10 +8,9 @@
 </head>
 <body>
     <h2>Player statistics</h2>
-
+    <input type="text" id="searchInput" placeholder="Search..." onkeyup="searchTable()"/>
     <div class="table-container">
-        <input type="text" id="searchInput" placeholder="Search..." onkeyup="searchTable()" />
-        <table id="mTtable" border="5">
+        <table id="myTable" border="5">
             <tr>
                 <th>Name</th>
                 <th>Team</th>
@@ -100,5 +99,6 @@
                 <td>24</td>
             </tr>
         </table>
+    <script src="script.js"></script>
 </body>
 </html>
