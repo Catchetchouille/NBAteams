@@ -4,16 +4,11 @@ function searchTable() {
   const rows = table.getElementsByTagName("tr");
 
   for (let i = 1; i < rows.length; i++) {
-    const cells = rows[i].getElementsByTagName("td");
-    let match = false;
+    const nameCell = rows[i].getElementsByTagName("td")[0];
 
-    for (let j = 0; j < cells.length; j++) {
-      if (cells[j].textContent.toLowerCase().includes(input)) {
-        match = true;
-        break;
-      }
+    if (nameCell) {
+      const name = nameCell.innerText.toLowerCase();
+      rows[i].style.display = name.includes(input) ? "" : "none";
     }
-
-    rows[i].style.display = match ? "" : "none";
   }
 }
