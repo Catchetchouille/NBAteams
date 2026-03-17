@@ -1,69 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>NBA Stats</title>
+    <title>the NBA house</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+    <img src="/static/definition_of_suvirr.png" alt="Logo" style="width:375px;height:100px; display:block; margin:auto;">
+    <h2>Player statistics</h2>
 
-  <h1>NBA Player Stats</h1>
+    <div class="table-container">
+        <input type="text" id="searchInput" placeholder="Search..." onkeyup="searchTable()" />
+        <table id="myTable" border="5">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Team</th>
+                    <th>Points</th>
+                    <th>Rebounds</th>
+                    <th>Assists</th>
+                    <th>Steals</th>
+                    <th>Blocks</th>
+                </tr>
+            </thead>
+            <tbody id="player-rows">
+                <tr><td colspan="7">Loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
 
-  <input type="text" id="search" placeholder="Search player..." />
-  <div id="suggestions"></div>
+    <script>
+        const PLAYERS = [
+            "Shai Gilgeous-Alexander",
+            "Kevin Durant",
+            "Nikola Jokic",
+            "Stephen Curry",
+            "LeBron James",
+            "Anthony Edwards",
+            "Tyrese Maxey",
+            "Donovan Mitchell",
+            "James Harden",
+            "Victor Wembanyama",
+        ];
 
-  <div id="info"></div>
-  <div id="career"></div>
-  <div id="gamelog"></div>
+        async function loadPlayers() {
+            const tbody = document.getElementById('player-rows');
+            tbody.innerHTML = '<tr><td colspan="7">Loading...</td></tr>';
 
-  <script>
-    const searchEl = document.getElementById('search');
-    let timer = null;
+            const rows = await Promise.all(PLAYERS.map(async (name) => {
+                try {
+                    const searchRes = await fetch(`/api/search?q=${encodeURIComponent(name)}`);
+                    const results = await searchRes.json();
+                    if (!results.length) return errorRow(name, 'Not found');
 
-    searchEl.addEventListener('input', () => {
-      clearTimeout(timer);
-      const q = searchEl.value.trim();
-      if (q.length < 2) { document.getElementById('suggestions').innerHTML = ''; return; }
-      timer = setTimeout(() => fetchSuggestions(q), 300);
-    });
+                    const id = results[0].id;
 
-    async function fetchSuggestions(q) {
-      const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
-      const players = await res.json();
-      document.getElementById('suggestions').innerHTML =
-        players.map(p => `<div onclick="loadPlayer(${p.id}, '${p.name}')">${p.name} (${p.active ? 'Active' : 'Retired'})</div>`).join('');
-    }
+                    const [info, career] = await Promise.all([
+                        fetch(`/api/player/${id}/info`).then(r => r.json()),
+                        fetch(`/api/player/${id}/career`).then(r => r.json()),
+                    ]);
 
-    async function loadPlayer(id, name) {
-      document.getElementById('suggestions').innerHTML = '';
-      searchEl.value = name;
-      document.getElementById('info').innerHTML = 'Loading...';
-      document.getElementById('career').innerHTML = '';
-      document.getElementById('gamelog').innerHTML = '';
+                    const avg = careerAverage(career);
 
-      const [info, career, gamelog] = await Promise.all([
-        fetch(`/api/player/${id}/info`).then(r => r.json()),
-        fetch(`/api/player/${id}/career`).then(r => r.json()),
-        fetch(`/api/player/${id}/gamelog`).then(r => r.json()),
-      ]);
+                    return `
+                        <tr>
+                            <td>
+                                <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/${id}.png"
+                                     alt="${name}"
+                                     style="width:100px;height:70px;object-fit:cover;vertical-align:middle;"
+                                     onerror="this.style.display='none'">
+                                ${name}
+                            </td>
+                            <td>${info.team || 'N/A'}</td>
+                            <td>${avg.PTS}</td>
+                            <td>${avg.REB}</td>
+                            <td>${avg.AST}</td>
+                            <td>${avg.STL}</td>
+                            <td>${avg.BLK}</td>
+                        </tr>
+                    `;
+                } catch (e) {
+                    return errorRow(name, 'Error loading');
+                }
+            }));
 
-      document.getElementById('info').innerHTML = `
-        <h2>${info.name}</h2>
-        <p>Team: ${info.team} | Position: ${info.position} | #${info.jersey} | ${info.height} | ${info.weight} lbs | ${info.country}</p>
-      `;
+            tbody.innerHTML = rows.join('');
+        }
 
-      document.getElementById('career').innerHTML = `<h3>Career Stats</h3>${buildTable(career)}`;
-      document.getElementById('gamelog').innerHTML = `<h3>2023-24 Game Log</h3>${buildTable(gamelog)}`;
-    }
+        function careerAverage(seasons) {
+            if (!seasons.length) return { PTS: '—', REB: '—', AST: '—', STL: '—', BLK: '—' };
+            const totalGP = seasons.reduce((sum, s) => sum + (s.GP || 0), 0);
+            if (!totalGP) return { PTS: '—', REB: '—', AST: '—', STL: '—', BLK: '—' };
+            const cols = ['PTS', 'REB', 'AST', 'STL', 'BLK'];
+            const result = {};
+            for (const col of cols) {
+                const total = seasons.reduce((sum, s) => sum + (s[col] || 0), 0);
+                result[col] = (total / totalGP).toFixed(1);
+            }
+            return result;
+        }
 
-    function buildTable(rows) {
-      if (!rows.length) return '<p>No data.</p>';
-      const keys = Object.keys(rows[0]);
-      return `<table border="1" cellpadding="4">
-        <thead><tr>${keys.map(k => `<th>${k}</th>`).join('')}</tr></thead>
-        <tbody>${rows.map(r => `<tr>${keys.map(k => `<td>${r[k] ?? '—'}</td>`).join('')}</tr>`).join('')}</tbody>
-      </table>`;
-    }
-  </script>
+        function errorRow(name, msg) {
+            return `<tr><td>${name}</td><td colspan="6">${msg}</td></tr>`;
+        }
 
-</body>
-</html>
+        function searchTable() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const table = document.getElementById("myTable");
+            const rows = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName("td");
+                let match = false;
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].textContent.toLowerCase().includes(input)) {
+                        match = true;
+                        break;
+                    }
+                }
+                rows[i].style.display = match ? "" : "none";
+            }
+        }
+
+        loadPlayers();
+    </script>
