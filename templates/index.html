@@ -2,124 +2,157 @@
 <html lang="en">
 <head>
     <title>the NBA house</title>
+    <img src="/static/definition_of_suvirr.png" alt="Logo" class="hero-logo">
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <img src="/static/definition_of_suvirr.png" alt="Logo" style="width:375px;height:100px; display:block; margin:auto;">
-    <h2>Player statistics</h2>
+    <h2>Pick a Team</h2>
 
-    <div class="table-container">
-        <input type="text" id="searchInput" placeholder="Search..." onkeyup="searchTable()" />
-        <table id="myTable" border="5">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Team</th>
-                    <th>Points</th>
-                    <th>Rebounds</th>
-                    <th>Assists</th>
-                    <th>Steals</th>
-                    <th>Blocks</th>
-                </tr>
-            </thead>
-            <tbody id="player-rows">
-                <tr><td colspan="7">Loading...</td></tr>
-            </tbody>
-        </table>
+    <div class="logo-grid">
+        <!-- Eastern Conference -->
+        <div class="conference-label">Eastern Conference</div>
+
+        <!-- Atlantic -->
+        <div class="division-label">Atlantic</div>
+        <a href="/team/1610612738" class="team-logo-link" title="Boston Celtics">
+            <img src="https://cdn.nba.com/logos/nba/1610612738/global/L/logo.svg" alt="Boston Celtics">
+            <span>Celtics</span>
+        </a>
+        <a href="/team/1610612751" class="team-logo-link" title="Brooklyn Nets">
+            <img src="https://cdn.nba.com/logos/nba/1610612751/global/L/logo.svg" alt="Brooklyn Nets">
+            <span>Nets</span>
+        </a>
+        <a href="/team/1610612752" class="team-logo-link" title="New York Knicks">
+            <img src="https://cdn.nba.com/logos/nba/1610612752/global/L/logo.svg" alt="New York Knicks">
+            <span>Knicks</span>
+        </a>
+        <a href="/team/1610612755" class="team-logo-link" title="Philadelphia 76ers">
+            <img src="https://cdn.nba.com/logos/nba/1610612755/global/L/logo.svg" alt="Philadelphia 76ers">
+            <span>76ers</span>
+        </a>
+        <a href="/team/1610612761" class="team-logo-link" title="Toronto Raptors">
+            <img src="https://cdn.nba.com/logos/nba/1610612761/global/L/logo.svg" alt="Toronto Raptors">
+            <span>Raptors</span>
+        </a>
+
+        <!-- Central -->
+        <div class="division-label">Central</div>
+        <a href="/team/1610612741" class="team-logo-link" title="Chicago Bulls">
+            <img src="https://cdn.nba.com/logos/nba/1610612741/global/L/logo.svg" alt="Chicago Bulls">
+            <span>Bulls</span>
+        </a>
+        <a href="/team/1610612739" class="team-logo-link" title="Cleveland Cavaliers">
+            <img src="https://cdn.nba.com/logos/nba/1610612739/global/L/logo.svg" alt="Cleveland Cavaliers">
+            <span>Cavaliers</span>
+        </a>
+        <a href="/team/1610612765" class="team-logo-link" title="Detroit Pistons">
+            <img src="https://cdn.nba.com/logos/nba/1610612765/global/L/logo.svg" alt="Detroit Pistons">
+            <span>Pistons</span>
+        </a>
+        <a href="/team/1610612754" class="team-logo-link" title="Indiana Pacers">
+            <img src="https://cdn.nba.com/logos/nba/1610612754/global/L/logo.svg" alt="Indiana Pacers">
+            <span>Pacers</span>
+        </a>
+        <a href="/team/1610612749" class="team-logo-link" title="Milwaukee Bucks">
+            <img src="https://cdn.nba.com/logos/nba/1610612749/global/L/logo.svg" alt="Milwaukee Bucks">
+            <span>Bucks</span>
+        </a>
+
+        <!-- Southeast -->
+        <div class="division-label">Southeast</div>
+        <a href="/team/1610612737" class="team-logo-link" title="Atlanta Hawks">
+            <img src="https://cdn.nba.com/logos/nba/1610612737/global/L/logo.svg" alt="Atlanta Hawks">
+            <span>Hawks</span>
+        </a>
+        <a href="/team/1610612766" class="team-logo-link" title="Charlotte Hornets">
+            <img src="https://cdn.nba.com/logos/nba/1610612766/global/L/logo.svg" alt="Charlotte Hornets">
+            <span>Hornets</span>
+        </a>
+        <a href="/team/1610612748" class="team-logo-link" title="Miami Heat">
+            <img src="https://cdn.nba.com/logos/nba/1610612748/global/L/logo.svg" alt="Miami Heat">
+            <span>Heat</span>
+        </a>
+        <a href="/team/1610612753" class="team-logo-link" title="Orlando Magic">
+            <img src="https://cdn.nba.com/logos/nba/1610612753/global/L/logo.svg" alt="Orlando Magic">
+            <span>Magic</span>
+        </a>
+        <a href="/team/1610612764" class="team-logo-link" title="Washington Wizards">
+            <img src="https://cdn.nba.com/logos/nba/1610612764/global/L/logo.svg" alt="Washington Wizards">
+            <span>Wizards</span>
+        </a>
+
+        <!-- Western Conference -->
+        <div class="conference-label">Western Conference</div>
+
+        <!-- Northwest -->
+        <div class="division-label">Northwest</div>
+        <a href="/team/1610612743" class="team-logo-link" title="Denver Nuggets">
+            <img src="https://cdn.nba.com/logos/nba/1610612743/global/L/logo.svg" alt="Denver Nuggets">
+            <span>Nuggets</span>
+        </a>
+        <a href="/team/1610612750" class="team-logo-link" title="Minnesota Timberwolves">
+            <img src="https://cdn.nba.com/logos/nba/1610612750/global/L/logo.svg" alt="Minnesota Timberwolves">
+            <span>Timberwolves</span>
+        </a>
+        <a href="/team/1610612760" class="team-logo-link" title="Oklahoma City Thunder">
+            <img src="https://cdn.nba.com/logos/nba/1610612760/global/L/logo.svg" alt="Oklahoma City Thunder">
+            <span>Thunder</span>
+        </a>
+        <a href="/team/1610612757" class="team-logo-link" title="Portland Trail Blazers">
+            <img src="https://cdn.nba.com/logos/nba/1610612757/global/L/logo.svg" alt="Portland Trail Blazers">
+            <span>Trail Blazers</span>
+        </a>
+        <a href="/team/1610612762" class="team-logo-link" title="Utah Jazz">
+            <img src="https://cdn.nba.com/logos/nba/1610612762/global/L/logo.svg" alt="Utah Jazz">
+            <span>Jazz</span>
+        </a>
+
+        <!-- Pacific -->
+        <div class="division-label">Pacific</div>
+        <a href="/team/1610612744" class="team-logo-link" title="Golden State Warriors">
+            <img src="https://cdn.nba.com/logos/nba/1610612744/global/L/logo.svg" alt="Golden State Warriors">
+            <span>Warriors</span>
+        </a>
+        <a href="/team/1610612746" class="team-logo-link" title="LA Clippers">
+            <img src="https://cdn.nba.com/logos/nba/1610612746/global/L/logo.svg" alt="LA Clippers">
+            <span>Clippers</span>
+        </a>
+        <a href="/team/1610612747" class="team-logo-link" title="Los Angeles Lakers">
+            <img src="https://cdn.nba.com/logos/nba/1610612747/global/L/logo.svg" alt="Los Angeles Lakers">
+            <span>Lakers</span>
+        </a>
+        <a href="/team/1610612756" class="team-logo-link" title="Phoenix Suns">
+            <img src="https://cdn.nba.com/logos/nba/1610612756/global/L/logo.svg" alt="Phoenix Suns">
+            <span>Suns</span>
+        </a>
+        <a href="/team/1610612758" class="team-logo-link" title="Sacramento Kings">
+            <img src="https://cdn.nba.com/logos/nba/1610612758/global/L/logo.svg" alt="Sacramento Kings">
+            <span>Kings</span>
+        </a>
+
+        <!-- Southwest -->
+        <div class="division-label">Southwest</div>
+        <a href="/team/1610612742" class="team-logo-link" title="Dallas Mavericks">
+            <img src="https://cdn.nba.com/logos/nba/1610612742/global/L/logo.svg" alt="Dallas Mavericks">
+            <span>Mavericks</span>
+        </a>
+        <a href="/team/1610612745" class="team-logo-link" title="Houston Rockets">
+            <img src="https://cdn.nba.com/logos/nba/1610612745/global/L/logo.svg" alt="Houston Rockets">
+            <span>Rockets</span>
+        </a>
+        <a href="/team/1610612763" class="team-logo-link" title="Memphis Grizzlies">
+            <img src="https://cdn.nba.com/logos/nba/1610612763/global/L/logo.svg" alt="Memphis Grizzlies">
+            <span>Grizzlies</span>
+        </a>
+        <a href="/team/1610612740" class="team-logo-link" title="New Orleans Pelicans">
+            <img src="https://cdn.nba.com/logos/nba/1610612740/global/L/logo.svg" alt="New Orleans Pelicans">
+            <span>Pelicans</span>
+        </a>
+        <a href="/team/1610612759" class="team-logo-link" title="San Antonio Spurs">
+            <img src="https://cdn.nba.com/logos/nba/1610612759/global/L/logo.svg" alt="San Antonio Spurs">
+            <span>Spurs</span>
+        </a>
     </div>
 
-    <script>
-        const PLAYERS = [
-            "Shai Gilgeous-Alexander",
-            "Kevin Durant",
-            "Nikola Jokic",
-            "Stephen Curry",
-            "LeBron James",
-            "Anthony Edwards",
-            "Tyrese Maxey",
-            "Donovan Mitchell",
-            "James Harden",
-            "Victor Wembanyama",
-        ];
-
-        async function loadPlayers() {
-            const tbody = document.getElementById('player-rows');
-            tbody.innerHTML = '<tr><td colspan="7">Loading...</td></tr>';
-
-            const rows = await Promise.all(PLAYERS.map(async (name) => {
-                try {
-                    const searchRes = await fetch(`/api/search?q=${encodeURIComponent(name)}`);
-                    const results = await searchRes.json();
-                    if (!results.length) return errorRow(name, 'Not found');
-
-                    const id = results[0].id;
-
-                    const [info, career] = await Promise.all([
-                        fetch(`/api/player/${id}/info`).then(r => r.json()),
-                        fetch(`/api/player/${id}/career`).then(r => r.json()),
-                    ]);
-
-                    const avg = careerAverage(career);
-
-                    return `
-                        <tr>
-                            <td>
-                                <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/${id}.png"
-                                     alt="${name}"
-                                     style="width:100px;height:70px;object-fit:cover;vertical-align:middle;"
-                                     onerror="this.style.display='none'">
-                                ${name}
-                            </td>
-                            <td>${info.team || 'N/A'}</td>
-                            <td>${avg.PTS}</td>
-                            <td>${avg.REB}</td>
-                            <td>${avg.AST}</td>
-                            <td>${avg.STL}</td>
-                            <td>${avg.BLK}</td>
-                        </tr>
-                    `;
-                } catch (e) {
-                    return errorRow(name, 'Error loading');
-                }
-            }));
-
-            tbody.innerHTML = rows.join('');
-        }
-
-        function careerAverage(seasons) {
-            if (!seasons.length) return { PTS: '—', REB: '—', AST: '—', STL: '—', BLK: '—' };
-            const totalGP = seasons.reduce((sum, s) => sum + (s.GP || 0), 0);
-            if (!totalGP) return { PTS: '—', REB: '—', AST: '—', STL: '—', BLK: '—' };
-            const cols = ['PTS', 'REB', 'AST', 'STL', 'BLK'];
-            const result = {};
-            for (const col of cols) {
-                const total = seasons.reduce((sum, s) => sum + (s[col] || 0), 0);
-                result[col] = (total / totalGP).toFixed(1);
-            }
-            return result;
-        }
-
-        function errorRow(name, msg) {
-            return `<tr><td>${name}</td><td colspan="6">${msg}</td></tr>`;
-        }
-
-        function searchTable() {
-            const input = document.getElementById("searchInput").value.toLowerCase();
-            const table = document.getElementById("myTable");
-            const rows = table.getElementsByTagName("tr");
-
-            for (let i = 1; i < rows.length; i++) {
-                const cells = rows[i].getElementsByTagName("td");
-                let match = false;
-                for (let j = 0; j < cells.length; j++) {
-                    if (cells[j].textContent.toLowerCase().includes(input)) {
-                        match = true;
-                        break;
-                    }
-                }
-                rows[i].style.display = match ? "" : "none";
-            }
-        }
-
-        loadPlayers();
-    </script>
+</body>
+</html>

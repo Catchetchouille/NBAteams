@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>the NBA house</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <img src="/static/definition_of_suvirr.png" alt="Logo" class="hero-logo">
+
+    <div class="team-header">
+        <a href="/" class="back-btn">← All Teams</a>
+        <img id="team-logo" src="" alt="Team Logo" class="team-logo-img">
+        <h2 id="team-name">Loading...</h2>
+    </div>
+
+    <div class="input-container">
+        <input type="text" id="searchInput" placeholder="Search player..." onkeyup="searchTable()" />
+    </div>
+
+    <div class="table-container">
+        <table id="myTable" border="5">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>On Team Since</th>
+                </tr>
+            </thead>
+            <tbody id="player-rows">
+                <tr><td colspan="3" class="loading-gif-cell"><img src="/static/March_Madness_Nba_GIF_by_SportsManias.gif" class="loading-gif"></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Player Stats Modal -->
+    <div id="player-modal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModalBtn()">✕</button>
+
+            <div class="modal-header">
+                <img id="modal-headshot" src="" alt="" onerror="this.style.display='none'">
+                <div class="modal-title-block">
+                    <h3 id="modal-name">—</h3>
+                    <p id="modal-team-pos">—</p>
+                    <span id="modal-jersey" class="jersey-badge">#—</span>
+                </div>
+            </div>
+
+            <div class="modal-stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Height</span>
+                    <span class="stat-value" id="modal-height">—</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Weight</span>
+                    <span class="stat-value" id="modal-weight">—</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Country</span>
+                    <span class="stat-value" id="modal-country">—</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Experience</span>
+                    <span class="stat-value" id="modal-experience">—</span>
+                </div>
+            </div>
+
+            <div id="modal-loading" class="modal-loading">Loading stats…</div>
+
+            <div id="modal-career" style="display:none;">
+                <h4 class="career-title">Career Stats (Latest Season)</h4>
+                <div class="career-stats-row">
+                    <div class="career-stat">
+                        <span class="career-stat-val" id="cs-pts">—</span>
+                        <span class="career-stat-lbl">PPG</span>
+                    </div>
+                    <div class="career-stat">
+                        <span class="career-stat-val" id="cs-reb">—</span>
+                        <span class="career-stat-lbl">RPG</span>
+                    </div>
+                    <div class="career-stat">
+                        <span class="career-stat-val" id="cs-ast">—</span>
+                        <span class="career-stat-lbl">APG</span>
+                    </div>
+                    <div class="career-stat">
+                        <span class="career-stat-val" id="cs-stl">—</span>
+                        <span class="career-stat-lbl">SPG</span>
+                    </div>
+                    <div class="career-stat">
+                        <span class="career-stat-val" id="cs-blk">—</span>
+                        <span class="career-stat-lbl">BPG</span>
+                    </div>
+                    <div class="career-stat">
+                        <span class="career-stat-val" id="cs-fg">—</span>
+                        <span class="career-stat-lbl">FG%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/team.js"></script>
+</body>
+</html>
